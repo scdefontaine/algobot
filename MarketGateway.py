@@ -16,9 +16,7 @@ alpaca_key = "PKMCXT8TUQH0YR06LFN7"
 alpaca_secret = "euc5bT52sNStFI4PDKg8hrQvrZxF/MeLQak6WEhi"
 
 # Kite
-kite_url = ""
-kite_key = ""
-kite_secret = ""
+
 
 class MarketGateway:
     def __init__(self):
@@ -32,11 +30,7 @@ class MarketGateway:
         self.alpaca = tradeapi.REST(alpaca_creds[0],alpaca_creds[1],alpaca_creds[2],'v2')
 
         # kite Connect
-        self.kite_creds = [
-            kite_key,
-            kite_secret,
-            kite_url
-        ]
+        self.kite_key = "u3gskacuz9pqc3rw"
 
         self.kite = KiteConnect(api_key=self.kite[1])
 
