@@ -10,33 +10,56 @@ import traceback
 import alpaca_trade_api as tradeapi
 from kiteconnect import KiteConnect
 
-# Alpaca
-alpaca_url = "https://paper-api.alpaca.markets"
-alpaca_key = "PKMCXT8TUQH0YR06LFN7"
-alpaca_secret = "euc5bT52sNStFI4PDKg8hrQvrZxF/MeLQak6WEhi"
-
-# Kite
-
-
 class MarketGateway:
+
     def __init__(self):
 
-        self.alpaca_creds = [
-            alpaca_key,
-            alpaca_secret,
-            alpaca_url
-        ]
+        # get credentials from external txt file
 
-        self.alpaca = tradeapi.REST(alpaca_creds[0],alpaca_creds[1],alpaca_creds[2],'v2')
+        # alpaca paper trading
+        alpaca_url = "https://paper-api.alpaca.markets"
+        alpaca_key = "PKMCXT8TUQH0YR06LFN7"
+        alpaca_secret = "euc5bT52sNStFI4PDKg8hrQvrZxF/MeLQak6WEhi"
+        self.alpaca = tradeapi.REST(alpaca_key,alpaca_secret,alpaca_url,'v2')
 
-        # kite Connect
-        self.kite_key = "u3gskacuz9pqc3rw"
-
-        self.kite = KiteConnect(api_key=self.kite[1])
+        # kite connect
+        kite_key = "u3gskacuz9pqc3rw"
+        self.kite = KiteConnect(api_key=kite_key)
 
 
     # ------------------------------------------------
-    # Gateway IN Functions
+    # Gateway OUT Functions - LIVE TRADING
+    # ------------------------------------------------
+
+    # --------- NORMAL BROKERAGE FUNCTIONS -----------
+
+    def get_kite_account(self):
+        return
+
+
+
+
+
+    # --------- SESSION & ACCESS TOKEN FUNCTIONS -----
+
+    def generate_session(self, request_token, api_secret):
+        return self.kite.generate_session(request_token)
+
+    def generate_access_token(self):
+        return self.kite.login_url()
+
+    def renew_access_token(self, refresh_token, api_secret):
+        return self.kite.renew_access_token(refresh_token, api_secret)
+
+
+    # ------------------------------------------------
+    # Gateway OUT Functions - LIVE TRADING
+    # ------------------------------------------------
+
+
+
+    # ------------------------------------------------
+    # Gateway IN Functions - PAPER TRADING
     # ------------------------------------------------
 
     # get market data
@@ -89,7 +112,7 @@ class MarketGateway:
         return self.alpaca.get_portfolio_history(start,end)
 
     # ------------------------------------------------
-    # Gateway OUT Functions
+    # Gateway OUT Functions - PAPER TRADING
     # ------------------------------------------------
 
     # Close a position via it's position_id
@@ -116,15 +139,5 @@ class MarketGateway:
     # Submit order
     def submit_order(self, order):
         return self.alpaca.submit_order(order[0], order[1], order[2], order[3], order[4])
-
-
-    # -----------------------------------------
-    # Protocol Translator Functions
-    # -----------------------------------------
-
-
-
-
-
 
 # EOF
