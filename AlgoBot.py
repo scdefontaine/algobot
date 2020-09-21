@@ -18,7 +18,7 @@ import pandas as pd
 class AlgoBot:
     def __init__(self):
 
-        self.stocks_to_trade = ['AAPL', 'AYX']
+        stocks_to_trade = ['AAPL', 'AYX']
 
         # Communication channels
 
@@ -29,7 +29,7 @@ class AlgoBot:
         # setup strading system components
         self.gw = MarketGateway()
         self.trader = Trader(self.gw, 1)
-        self.strategy = Strategy(self.gw)
+        self.strategy = Strategy(self.gw,stocks_to_trade,self.trader)
 
     def run(self):
 

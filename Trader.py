@@ -12,7 +12,6 @@ class Trader:
 
         self.trader_id = id
         self.is_dead = False
-        self.fitness_score
 
         # Account Info
         account = gw.get_account()

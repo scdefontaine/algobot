@@ -23,8 +23,8 @@ class MarketGateway:
         self.alpaca = tradeapi.REST(alpaca_key,alpaca_secret,alpaca_url,'v2')
 
         # kite connect
-        kite_key = "u3gskacuz9pqc3rw"
-        self.kite = KiteConnect(api_key=kite_key)
+        # kite_key = "u3gskacuz9pqc3rw"
+        # self.kite = KiteConnect(api_key=kite_key)
 
 
     # ------------------------------------------------
@@ -33,11 +33,32 @@ class MarketGateway:
 
     # --------- NORMAL BROKERAGE FUNCTIONS -----------
 
-    def get_kite_account(self):
-        return
+    def kite_account(self):
+        return self.kite.profile()
 
+    def orders(self):
+        return self.kite.orders()
 
+    def order_history(self, order_id):
+        return self.kite.order_history(order_id)
 
+    def positions(self):
+        return self.kite.positions()
+
+    def instruments(self, exchange=None):
+        return self.kite.instruments(exchange)
+
+    def quote(self, *instruments):
+        return self.kite.quote(instruments)
+
+    def ohlc_values(self, *instruments):
+        return self.kite.ohlc(instruments)
+
+    def last_price(self, *instruments):
+        return self.kite.ltp(instruments)
+
+    def historical_data(self, instrument_token, from_date, to_date, interval, continuous=False, oi=False):
+        return self.kite.historical_data(self,instrument_token,from_date,to_date,interval,continuous,oi)
 
 
     # --------- SESSION & ACCESS TOKEN FUNCTIONS -----
@@ -45,7 +66,10 @@ class MarketGateway:
     def generate_session(self, request_token, api_secret):
         return self.kite.generate_session(request_token)
 
-    def generate_access_token(self):
+    def renew_access_token(self, refresh_token, api_secret):
+        return self.kite.renew_access_token(refresh_token,api_secret)
+
+    def login_url(self):
         return self.kite.login_url()
 
     def renew_access_token(self, refresh_token, api_secret):
@@ -56,7 +80,63 @@ class MarketGateway:
     # Gateway OUT Functions - LIVE TRADING
     # ------------------------------------------------
 
+    def place_order(self,
+                    variety,
+                    exchange,
+                    tradingsymbol,
+                    transaction_type,
+                    quantity,
+                    product,
+                    order_type,
+                    price=None,
+                    validity=None,
+                    disclosed_quantity=None,
+                    trigger_price=None,
+                    squareoff=None,
+                    stoploss=None,
+                    trailing_stoploss=None,
+                    tag=None):
+        return self.kite.place_order(variety,
+                                    exchange,
+                                    tradingsymbol,
+                                    transaction_type,
+                                    quantity,
+                                    product,
+                                    order_type,
+                                    price,
+                                    validity,
+                                    disclosed_quantity,
+                                    trigger_price,
+                                    squareoff,
+                                    stoploss,
+                                    trailing_stoploss,
+                                    tag)
 
+    def modify_order(self,
+                     variety,
+                     order_id,
+                     parent_order_id=None,
+                     quantity=None,
+                     price=None,
+                     order_type=None,
+                     trigger_price=None,
+                     validity=None,
+                     disclosed_quantity=None):
+        return self.kite.modify_order(variety,
+                                     order_id,
+                                     parent_order_id,
+                                     quantity,
+                                     price,
+                                     order_type,
+                                     trigger_price,
+                                     validity,
+                                     disclosed_quantity)
+
+    def cancel_order(self, variety, order_id, parent_order_id=None):
+        return self.kite.cancel_order(variety, order_id, parent_order_id)
+
+
+    # -----------------------------------------------------------------
 
     # ------------------------------------------------
     # Gateway IN Functions - PAPER TRADING

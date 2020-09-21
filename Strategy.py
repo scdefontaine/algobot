@@ -3,7 +3,7 @@
 
 
 class Strategy:
-    def __init__(self, gw, stocks_to_trade):
+    def __init__(self, gw, stocks_to_trade, trader):
 
         # api access
         self.gw = gw
