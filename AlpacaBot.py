@@ -1,10 +1,9 @@
-# Control Center
+# Alpaca Bot
 
 from MarketGateway import MarketGateway
 from Trader import Trader
 from Strategy import Strategy
 
-from collections import deque
 import threading
 import traceback
 import datetime
@@ -13,18 +12,16 @@ import time
 class AlgoBot:
     def __init__(self):
 
-        stocks_to_trade = ['AAPL', 'AYX']
-
-        # Communication channels
+        # input from sentiment bot
+        self.stocks_to_trade = self.get_stocks()
 
         # helper variables
         self.isOpen = False
-        self.ohlc_values = {}
 
         # setup strading system components
         self.gw = MarketGateway()
         self.trader = Trader(self.gw, 1)
-        self.strategy = Strategy(self.gw,stocks_to_trade,self.trader)
+        self.strategy = Strategy(self.gw, stocks_to_trade, trader)
 
     def run(self):
 
@@ -46,24 +43,18 @@ class AlgoBot:
                 amo_thread.join()
                 print("Market opened.")
 
-            # Close all positions when 15 minutes til market close.
-            if(self.timeToClose < (60 * 15)):
-                print("Market closing soon.  Closing positions.")
-                self.gw.close_all_positions()
-
-                # Run script again after market close for next trading day.
-                print("Sleeping until market close (15 minutes).")
-                time.sleep(60 * 15)
             else:
-
                 # Run strategy thread
-                strat_thread = threading.Thread(target=self.strategy.run_strategy)
+                strat_thread = threading.Thread(target=self.strategy.run)
                 strat_thread.start()
                 strat_thread.join()
 
             # sleep for 60 seconds
             time.sleep(60)
 
+    # Get stocks from sentiment bot
+    def get_stocks(self):
+        return ['AAPL','AYX']
 
     # Await market open function
     def awaitMarketOpen(self):

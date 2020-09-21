@@ -8,32 +8,19 @@ class Strategy:
         # api access
         self.gw = gw
 
-        # channels
-        # self.book_2_strat = book_2_strat
-        # self.strat_2_manager = strat_2_manager
-        # self.manager_2_strat = manager_2_strat
+        # External classes
+        self.trader = trader
 
         # Class variables
         self.stocks_to_trade = stocks_to_trade
         self.orders = []    # order_id, symbol, qty, side, order_type, time_in_force
 
-        # External classes
-        self.trader = trader
-
-        # Indicator variables
-        self.rsi = 0
-        self.macd = 0
-        self.volume = 0
-        self.vwap = 0
-
-        # Candlestick variables
-        self.hammer = None
-        self.inverted_hammer = None
+        #
 
     def get_rsi(self, close):
         return
 
-    def run_strategy(self):
+    def run(self):
         # create thread to trading strategy class
         # Run Strategy
         print(" -------------------------------- ")
