@@ -4,25 +4,18 @@ import sys
 import time
 import traceback
 import alpaca_trade_api as tradeapi
-from kiteconnect import KiteConnect
 
 class MarketGateway:
 
     def __init__(self):
-
-        # get credentials from external txt file
-
-        # alpaca live trading
-        # alpaca_url = "https://api.alpaca.markets"
-        # alpaca_key = "AKI0HM4U3MRV06543ENW"
-        # alpaca_secret = "ARvZlbpIGYVGbNY5ZVIwDhjZIpTMYANJ5TzLKp2J"
-        # self.alpaca = tradeapi.REST(alpaca_key,alpaca_secret,alpaca_url,'v2')
-
         # alpaca paper trading
         alpaca_url = "https://paper-api.alpaca.markets"
-        alpaca_key = "PKMCXT8TUQH0YR06LFN7"
-        alpaca_secret = "euc5bT52sNStFI4PDKg8hrQvrZxF/MeLQak6WEhi"
+        # alpaca_key = "YOUR-API-KEY"
+        alpaca_key = "PKVQE5XUH9W1VSDYEVCT"
+        alpaca_secret = "uDBDUQ2GOxJyj2tM1Q0pMZ0ZrcB4FU9xRAE6yKeF"
+        # alpaca_secret = "YOUR-SECRET-KEY"
         self.alpaca = tradeapi.REST(alpaca_key,alpaca_secret,alpaca_url,'v2')
+        print('Brokerage connection successful...')
 
     # ------------------------------------------------
     # Gateway IN Functions
