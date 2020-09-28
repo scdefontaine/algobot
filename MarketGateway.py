@@ -12,7 +12,7 @@ class MarketGateway:
         alpaca_url = "https://paper-api.alpaca.markets"
         alpaca_key = "YOUR-API-KEY"
         alpaca_secret = "YOUR-SECRET-KEY"
-        
+
         self.alpaca = tradeapi.REST(alpaca_key,alpaca_secret,alpaca_url,'v2')
         print('Brokerage connection successful...')
 
