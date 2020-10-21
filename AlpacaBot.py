@@ -26,7 +26,8 @@ class AlgoBot:
     def __init__(self):
 
         # input from sentiment bot
-        self.stocks_to_trade = ['AAPL','TSLA','ORCL','AYX','MDB']
+        # self.stocks_to_trade = ['AAPL','TSLA','ORCL','AYX','MDB']
+        self.stocks_to_trade = open("sp500_tickers.txt", "r").read().split("\n")
 
         # helper variables
         self.isOpen = False
@@ -220,7 +221,7 @@ class AlgoBot:
         longPeriod = 100
         basket={}
         # Do we want to plot charts?
-        plotCharts = True
+        plotCharts = False
         # Dataframe display setting
         pd.set_option("display.max_rows", 999)
         pd.set_option('precision', 3)
